@@ -53,10 +53,16 @@ module.exports = class TransferService {
             const transaction = await TransactionRepository.findTransactionById(transactionId, session);
             if (!transaction) throw new Error('Transaction not found');
             if (transaction.status !== 'pending') throw new Error('Transaction already processed or expired');
-
             const receiverWallet = await WalletService.findWalletById(transaction.receiverWalletId, session);
             if(receiverWallet.userId._id != user.id) throw new Error('not authorize to process this transaction');
             if (!receiverWallet) throw new Error('Receiver wallet not found');
+            if (transaction.expiresAt < new Date()){
+                transaction.status = 'expired';
+                await TransactionRepository.updateTransactionStatus(transaction._id,transaction.status);
+                // Subtract points from sender's wallet
+                await WalletService.updateWallet(transaction.senderWalletId, { $inc: { reservedPoints: -1*parseInt(transaction.points) } });
+                throw new Error('transaction already expired');
+            }
             const senderWallet = await WalletService.findWalletById(transaction.senderWalletId, session);
 
             if (!senderWallet) throw new Error('Sender wallet not found');
