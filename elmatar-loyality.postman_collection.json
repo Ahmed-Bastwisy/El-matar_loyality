@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "2533ae5c-7a96-44af-884f-e36fbbaa9599",
+		"name": "elmatar-loyality",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25303811"
+	},
+	"item": [
+		{
+			"name": "userApi",
+			"item": [
+				{
+					"name": "userRegister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mohamed Sami\",\r\n    \"email\": \"mohamed@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8500/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"mohamed@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8500/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserWallet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU4MjU4LCJleHAiOjE3MjYyNjE4NTh9.tgiGyyPMqzVfLivfeJvN3qsd1ShsFN8nMZiWRhmnvF4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8500/api/user/wallet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"user",
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserTransactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU4MjU4LCJleHAiOjE3MjYyNjE4NTh9.tgiGyyPMqzVfLivfeJvN3qsd1ShsFN8nMZiWRhmnvF4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8500/api/user/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"user",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transactionApi",
+			"item": [
+				{
+					"name": "transferPoint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU4MjU4LCJleHAiOjE3MjYyNjE4NTh9.tgiGyyPMqzVfLivfeJvN3qsd1ShsFN8nMZiWRhmnvF4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receiverEmail\": \"mohamed@gmail.com\",\r\n    \"points\":\"1000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8500/api/transaction/transfer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"transaction",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkExpired",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0ODA4OTBlMjcyYjBiZDY1YWU5MmIiLCJuYW1lIjoibW9oYW1lZCBTYW1pIiwiZW1haWwiOiJtb2hhbWVkQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJDF6Q3ZNblh0RlJSai4wTTl2dmQwdmVzdldjUEk1RnpSVjY3YkgxV0JGZWZWNldwU0tLZVRLIiwiX192IjowLCJpZCI6IjY2ZTQ4MDg5MGUyNzJiMGJkNjVhZTkyYiIsImlhdCI6MTcyNjI2MTQ3OSwiZXhwIjoxNzI2MjY1MDc5fQ.1YDDJ-hr2pYMLBzLUeth-q5ujPysXVgy9gEX-4zMayU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8500/api/transaction/expired",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"transaction",
+								"expired"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transferConfirm",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0ODA4OTBlMjcyYjBiZDY1YWU5MmIiLCJuYW1lIjoibW9oYW1lZCBTYW1pIiwiZW1haWwiOiJtb2hhbWVkQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJDF6Q3ZNblh0RlJSai4wTTl2dmQwdmVzdldjUEk1RnpSVjY3YkgxV0JGZWZWNldwU0tLZVRLIiwiX192IjowLCJpZCI6IjY2ZTQ4MDg5MGUyNzJiMGJkNjVhZTkyYiIsImlhdCI6MTcyNjI2MTQ3OSwiZXhwIjoxNzI2MjY1MDc5fQ.1YDDJ-hr2pYMLBzLUeth-q5ujPysXVgy9gEX-4zMayU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"confirm\",\r\n    \"transactionId\": \"66e49fc0791f15c59cf6f38e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8500/api/transaction//transfer/process",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"transaction",
+								"",
+								"transfer",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transferReject",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU0MzI4LCJleHAiOjE3MjYyNTc5Mjh9.Q2Mw9rAFlVkwKrXxmfX7BzrPOE0eGTXfeE0jVXvbNoE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"reject\",\r\n    \"transactionId\": \"66e4912424e2b1b8413e46e5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8500/api/transaction//transfer/process",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"transaction",
+								"",
+								"transfer",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all transactions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU4MjU4LCJleHAiOjE3MjYyNjE4NTh9.tgiGyyPMqzVfLivfeJvN3qsd1ShsFN8nMZiWRhmnvF4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8500/api/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "walletApi",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU0MzI4LCJleHAiOjE3MjYyNTc5Mjh9.Q2Mw9rAFlVkwKrXxmfX7BzrPOE0eGTXfeE0jVXvbNoE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8500/api/wallet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getWallet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmU0N2U0MjFhYWJlODE4MjQ5ZWUxYWIiLCJuYW1lIjoiQWhtZWQgUmVkYSIsImVtYWlsIjoiYWhtZWRAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkOW10a01XbjlpZGNrdFppQTNPajJ4ZVRyMWFWZkZTMHdzT0g0dzl1ajlkY2duZThHRzBFbi4iLCJfX3YiOjAsImlkIjoiNjZlNDdlNDIxYWFiZTgxODI0OWVlMWFiIiwiaWF0IjoxNzI2MjU0MzI4LCJleHAiOjE3MjYyNTc5Mjh9.Q2Mw9rAFlVkwKrXxmfX7BzrPOE0eGTXfeE0jVXvbNoE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8500/api/wallet/66e480890e272b0bd65ae92d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"api",
+								"wallet",
+								"66e480890e272b0bd65ae92d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
