@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const TransactionRepository = new (require('../Reposatories/transaction'))();
 const WalletService = new (require('../UseCases/wallet'))();
+const CustomError = require('../utils/customError');
 
 // TransferService class
 module.exports = class TransferService {
@@ -10,7 +11,7 @@ module.exports = class TransferService {
     // Create a new transfer
     async createTransfer(sender, receiverEmail, points) {
         const senderId = sender.id;
-        if (sender.email == receiverEmail) throw new Error("Can't transfer To yourSelf");
+        if (sender.email == receiverEmail) throw new CustomError(`Can't transfer To yourSelf`, 400);
         const session = await mongoose.startSession();
         session.startTransaction();
 
@@ -19,12 +20,12 @@ module.exports = class TransferService {
             const senderWallet = await WalletService.findWalletByUserId(senderId, session);
             const receiverWallet = await WalletService.findWalletByEmail(receiverEmail, session);
 
-            if (!senderWallet) throw new Error('Sender wallet not found');
-            if (!receiverWallet) throw new Error('Receiver wallet not found');
+            if (!senderWallet) throw new CustomError(`Sender wallet not found`, 400);
+            if (!receiverWallet) throw new CustomError(`Receiver wallet not found`, 400);
 
             senderWallet.reservedPoints += parseInt(points);
             if (senderWallet.balance < senderWallet.reservedPoints) {
-                throw new Error('Insufficient balance');
+                throw new CustomError(`Insufficient balance`, 400);
             }
 
             // Reserve points for transfer
@@ -40,7 +41,7 @@ module.exports = class TransferService {
         } catch (error) {
             await session.abortTransaction();
             session.endSession();
-            throw new Error(`Error creating transfer: ${error.message}`);
+            throw new CustomError(`${error.message}`, 400);
         }
     }
 
@@ -51,21 +52,21 @@ module.exports = class TransferService {
 
         try {
             const transaction = await TransactionRepository.findTransactionById(transactionId, session);
-            if (!transaction) throw new Error('Transaction not found');
-            if (transaction.status !== 'pending') throw new Error('Transaction already processed or expired');
+            if (!transaction) throw new CustomError(`Transaction not found`, 400);
+            if (transaction.status !== 'pending') throw new CustomError(`Transaction already processed or expired`, 400);
             const receiverWallet = await WalletService.findWalletById(transaction.receiverWalletId, session);
-            if(receiverWallet.userId._id != user.id) throw new Error('not authorize to process this transaction');
-            if (!receiverWallet) throw new Error('Receiver wallet not found');
+            if(receiverWallet.userId._id != user.id) throw new CustomError(`not authorize to process this transaction`, 400);
+            if (!receiverWallet) throw new CustomError(`Receiver wallet not found`, 400);
             if (transaction.expiresAt < new Date()){
                 transaction.status = 'expired';
                 await TransactionRepository.updateTransactionStatus(transaction._id,transaction.status);
                 // Subtract points from sender's wallet
                 await WalletService.updateWallet(transaction.senderWalletId, { $inc: { reservedPoints: -1*parseInt(transaction.points) } });
-                throw new Error('transaction already expired');
+                throw new CustomError(`transaction already expired`, 400);
             }
             const senderWallet = await WalletService.findWalletById(transaction.senderWalletId, session);
 
-            if (!senderWallet) throw new Error('Sender wallet not found');
+            if (!senderWallet) throw new CustomError(`Sender wallet not found`, 400);
 
             let strategy;
             if (action === 'confirm') {
@@ -73,7 +74,7 @@ module.exports = class TransferService {
             } else if (action === 'reject') {
                 strategy = new RejectTransferStrategy();
             } else {
-                throw new Error('Invalid action');
+                throw new CustomError(`Invalid action`, 400);
             }
 
             const points = transaction.points;
@@ -86,7 +87,7 @@ module.exports = class TransferService {
         } catch (err) {
             await session.abortTransaction();
             session.endSession();
-            throw err;
+            throw new CustomError(`${err}`, 400);
         }
     }
     async handleExpiredTransactions() {
@@ -110,7 +111,7 @@ module.exports = class TransferService {
 
             return `Updated ${expiredTransactions.length} expired transactions.`;
         } catch (error) {
-            throw new Error('Error handling expired transactions: ' + error.message);
+            throw new CustomError(`${error.message}`, 400);
         }
     }
 }
@@ -118,7 +119,7 @@ module.exports = class TransferService {
 // Strategy base class
 class TransferStrategy {
     async execute(transaction, senderWallet, receiverWallet, points, session) {
-        throw new Error('Method not implemented');
+        throw new CustomError(`Error Method not implemented`, 400);
     }
 }
 
@@ -126,7 +127,7 @@ class TransferStrategy {
 class ConfirmTransferStrategy extends TransferStrategy {
     async execute(transaction, senderWallet, receiverWallet, points, session) {
         if (senderWallet.balance < points) {
-            throw new Error('Insufficient balance');
+            throw new CustomError(`Insufficient balance`, 400);
         }
         senderWallet.balance -= points;
         receiverWallet.balance += points;

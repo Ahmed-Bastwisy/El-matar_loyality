@@ -1,4 +1,6 @@
+const mongoose = require('mongoose');
 const Wallet = require('../Core/wallet');
+const CustomError = require('../utils/customError');
 
 module.exports = class WalletRepository {
     async list() {
@@ -10,6 +12,7 @@ module.exports = class WalletRepository {
     }
 
     async findById(walletId, session = null) {
+        if (!mongoose.Types.ObjectId.isValid(walletId)) throw new CustomError(`Invalid wallet ID: ${walletId}`, 500)
         return await Wallet.findById(walletId).populate("userId", "_id name email").session(session).exec();
     }
 

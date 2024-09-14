@@ -17,6 +17,7 @@
     const path = require('path');
     const checkAuth = require('./middlewares/check-auth');
     const logger = require('./middlewares/logger');
+    const errorHandler = require('./middlewares/errorHandler');
     const autoIncrement = require('mongoose-auto-increment');
     const fs = require('fs');
     const routes = fs.readdirSync('./Controllers/').map(file => file.replace('.js', ''));
@@ -39,7 +40,8 @@
         let server = app.listen(port, async() => {
             try {
                 for (let route of routes)
-                app.use(`/api/${route}`, require(`./Controllers/${route}`)(app, express, server));
+                    app.use(`/api/${route}`, require(`./Controllers/${route}`)(app, express, server));
+                app.use(errorHandler);
                 global.applicationMetadataReference = {
                     server,
                     app

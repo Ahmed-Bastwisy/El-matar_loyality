@@ -1,5 +1,6 @@
 const walletRepository = new(require('../Reposatories/wallet'))();
 const userService = new(require('../UseCases/user'))();
+const CustomError = require('../utils/customError');
 
 module.exports = class WalletUseCase {
     async findWalletByUserId(userId, session) {
@@ -8,7 +9,7 @@ module.exports = class WalletUseCase {
     async findWalletByEmail(email, session) {
         let user = await userService.getUserByEmail(email);
         if (!user) {
-            throw new Error('User not found');
+            throw new CustomError(`User not found`, 400);
         }
         return await this.findWalletByUserId(user._id, session);
     }
